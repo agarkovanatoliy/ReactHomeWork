@@ -1,8 +1,18 @@
-# React + Vite
+# Урок 1. React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Развернуть новый проект с использованием create-react-app.
+Создать компонент Message, отображающий переданный ему props текст.
+Стилизовать компоненты через css (при желании можно использовать less или sass).
 
-Currently, two official plugins are available:
+## Дополнительное задание: Установить расширение React Devtools.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Чтобы установить расширение React DevTools в браузер Chrome:
+
+    Откройте Chrome и перейдите на страницу расширения React DevTools в Chrome Web Store по ссылке:
+    React DevTools - Chrome Web Store. <https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi>
+
+    Нажмите на кнопку "Добавить в Chrome" (Add to Chrome) для установки расширения.
+
+    В появившемся диалоговом окне подтвердите установку, нажав кнопку "Добавить расширение" (Add Extension).
+
+    После установки вы увидите значок React в вашей строке инструментов браузера. Когда вы используете своё React-приложение, этот значок будет активирован и вы сможете открывать React DevTools, чтобы просматривать компоненты вашего приложения внутри браузера.
