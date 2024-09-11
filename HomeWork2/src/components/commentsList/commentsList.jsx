@@ -10,7 +10,7 @@ function CommentsList() {
   const [commentId, setCommentId] = useState(3);
 
   const addComment = () => {
-    if (comment !== "") {
+    if (comment.trim() !== "") {
       setCommentsList([
         ...commentsList,
         {
@@ -18,6 +18,8 @@ function CommentsList() {
           text: comment,
         },
       ]);
+      setComment("");
+    } else {
       setComment("");
     }
   };
@@ -44,7 +46,7 @@ function CommentsList() {
         <button onClick={addComment}>Добавить комментарий</button>
       </div>
       <div>
-        {commentsList.length > 0 ? (
+        {commentsList?.length > 0 ? (
           <ul>
             {commentsList.map((el) => (
               <li key={el.id}>
