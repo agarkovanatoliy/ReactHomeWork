@@ -44,7 +44,7 @@ function CommentsList() {
         <button onClick={addComment}>Добавить комментарий</button>
       </div>
       <div>
-        {commentsList?.length > 0 ? (
+        {commentsList.length > 0 ? (
           <ul>
             {commentsList.map((el) => (
               <li key={el.id}>
