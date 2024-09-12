@@ -11,17 +11,16 @@ function CommentsList() {
 
   const addComment = () => {
     if (comment.trim() !== "") {
-      setCommentsList([
-        ...commentsList,
+      setCommentsList((prevCommentsList) => [
+        ...prevCommentsList,
         {
-          id: setCommentId((prevCommentId) => prevCommentId + 1),
+          id: commentId + 1, // Увеличиваем ID на единицу
           text: comment,
         },
       ]);
-      setComment("");
-    } else {
-      setComment("");
+      setCommentId((prevId) => prevId + 1); // Обновляем ID после добавления
     }
+    setComment("");
   };
 
   const deleteComment = (id) => {
