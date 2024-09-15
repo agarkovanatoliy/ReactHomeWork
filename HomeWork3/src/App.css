@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+h2{
+  display: flex;
+  justify-content: center;
+}
+
+.textField{
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+
+.temperatureConverter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+}
+
+.FirstTask {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.SecondTask {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.box{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card{
+  display: flex;
+  justify-content: space-between;
+}
