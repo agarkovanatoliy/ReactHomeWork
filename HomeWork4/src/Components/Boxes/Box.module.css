@@ -1,0 +1,52 @@
+.nav {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.link {
+  display: flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+  color: rgb(10, 10, 10);
+}
+
+.active {
+  color: rgb(228, 20, 20);
+  font-size: 20px;
+}
+
+.text {
+  max-width: 600px;
+  margin: auto;
+  border: 2px solid #c62727;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: aliceblue;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.product {
+  display: flex;
+  border: 1px solid;
+  border-radius: 15px;
+  width: 200px;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.product:hover{
+  background-color: blue;
+}
+
+.productBox{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
