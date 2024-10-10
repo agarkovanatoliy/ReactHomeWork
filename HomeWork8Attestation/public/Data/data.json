@@ -1,0 +1,130 @@
+[
+  {
+  "id": 1,
+  "img" : "img/card1.png",
+  "title" : "Mango  People  T-shirt",
+  "price" : 52.00,
+  "quantity" : 3,
+  "size" : "XXS"
+  },
+  {
+    "id": 2,
+    "img" : "img/card2.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 60.00,
+    "quantity" : 3,
+    "size" : "XS"
+  },
+  {
+    "id": 3,
+    "img" : "img/card3.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 55.00,
+    "quantity" : 3,
+    "size" : "S"
+    },
+  {
+    "id": 4,
+    "img" : "img/card4.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 45.00,
+    "quantity" : 3,
+    "size" : "L"
+  },
+  {
+    "id": 5,
+    "img" : "img/card5.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 52.00,
+    "quantity" : 3,
+    "size" : "XL"
+  },
+  {
+    "id": 6,
+    "img" : "img/card6.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 60.00,
+    "quantity" : 3,
+    "size" : "XXL"
+  },
+  {
+    "id": 7,
+    "img" : "img/card7.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 70.00,
+    "quantity" : 3,
+    "size" : "L"
+  },
+  {
+    "id": 8,
+    "img" : "img/card8.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 80.00,
+    "quantity" : 3,
+    "size" : "XXS"
+  },
+  {
+    "id": 9,
+    "img" : "img/card1.png",
+    "title" : "Mango  People  T-shirt",
+    "price" : 52.00,
+    "quantity" : 3,
+    "size" : "XS"
+    },
+    {
+      "id": 10,
+      "img" : "img/card2.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 60.00,
+      "quantity" : 3,
+      "size" : "S"
+    },
+    {
+      "id": 11,
+      "img" : "img/card3.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 55.00,
+      "quantity" : 3,
+      "size" : "L"
+      },
+    {
+      "id": 12,
+      "img" : "img/card4.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 45.00,
+      "quantity" : 3,
+      "size" : "XL"
+    },
+    {
+      "id": 13,
+      "img" : "img/card5.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 52.00,
+      "quantity" : 3,
+      "size" : "XXL"
+    },
+    {
+      "id": 14,
+      "img" : "img/card6.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 60.00,
+      "quantity" : 3,
+      "size" : "L"
+    },
+    {
+      "id": 15,
+      "img" : "img/card7.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 70.00,
+      "quantity" : 3,
+      "size" : "XXS"
+    },
+    {
+      "id": 16,
+      "img" : "img/card8.png",
+      "title" : "Mango  People  T-shirt",
+      "price" : 80.00,
+      "quantity" : 3,
+      "size" : "XS"
+    }
+]
