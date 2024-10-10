@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import Menu from './Menu';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { removeFromBasket } from '../store/basketReducer';
+import ProductItemBascetHeader from './ProductItemBascetHeader';
 
 
 
 function Header() {
     const basketItems = useSelector(state => state.basketItems.basketItems);
     const [totalPrice, setTotalPrice] = useState(0);
-    const dispatch = useDispatch();
 
     const totalItems = basketItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -70,22 +69,18 @@ function Header() {
                         <span className="basket_count">{totalItems}</span>
                     </summary>
                     <div className="basket__content">
-                        {basketItems.map(el => (
-                            <div className="basket__content-item" key={el.id} id={el.id}>
-                                <Link to="/basket">
-                                    <img src={el.img} alt={el.title} className="basket__produkt"/>
-                                </Link>
-                                <div className="basket__product-info">
-                                    <h2 className="basket__produkt-title">{el.title}</h2>
-                                    <img src="./img/star.png" alt="star" className="basket__produkt-star"/>
-                                    <h2 className="basket__produkt-price">{el.quantity}*{el.price}$</h2>
-                                </div>
-                                <button className="basket__del" onClick={() => dispatch(removeFromBasket(el))}>
-                                    <img src="img/__1827.png" alt="отказ" className="basket__rejection"/>
-                                </button>
-                            </div>
-                            ))
-                        }
+                        {basketItems.map(product => (
+                            <ProductItemBascetHeader
+                                product={product}
+                                key={product.id}
+                                id={product.id}
+                                src={product.img}
+                                alt={product.title}
+                                title={product.title}
+                                price={product.price}
+                                quantity={product.quantity}
+                            />
+                        ))}
                         <h2 className="basket__content-total">TOTAL:
                             <span className="basket__content-total-sum">{totalPrice}$</span>
                         </h2>

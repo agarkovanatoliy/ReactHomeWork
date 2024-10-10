@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import Header from "./Header";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { removeFromBasket, updateBasketItemQuantity } from "../store/basketReducer";
+import ProductItemBascet from "./ProductItemBascet";
 
 function Bascet() {
     const basketItems = useSelector(state => state.basketItems.basketItems);
     const [totalPrice, setTotalPrice] = useState(0);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         let total = 0;
@@ -17,11 +16,6 @@ function Bascet() {
         });
         setTotalPrice(total);
     }, [basketItems]);
-
-    const handleQuantityChange = (e, product) => {
-        const value = Number(e.target.value);
-        dispatch(updateBasketItemQuantity({ product, value }));
-    };
 
     return (
     <>
@@ -48,36 +42,19 @@ function Bascet() {
                 <h2 className="shoppingCart__content-title-item">Subtotal</h2>
                 <h2 className="shoppingCart__content-title-item">Action</h2>
             </div>
-            {basketItems.map(el => (
-                <div key={el.id} className="shoppingCart__content-item" id="${el.id}">
-                    <div className="shoppingCart__content-item-info">
-                        <Link className="shoppingCart__content-item-info-img" to="/product">
-                            <img className="shoppingCart__content-item-img" src={el.img} alt={el.title} />
-                        </Link>
-                        <div className="shoppingCart__content-item-description">
-                            <h3 className="shoppingCart__content-item-name">{el.title}</h3>
-                            <span className="shoppingCart__content-item-colorSize">Color:&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span className="shoppingCart__content-item-colorSize-data">Red</span><br/>
-                                Size:&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span className="shoppingCart__content-item-colorSize-data">{el.size}</span>
-                            </span>
-                        </div>
-                    </div>
-                    <span className="shoppingCart__content-item-price">{el.price}$</span>
-                    <input
-                        className="shoppingCart__content-item-inputField"
-                        type="number"
-                        id={el.id}
-                        min="1"
-                        value={el.quantity}
-                        onChange={(e) => handleQuantityChange(e, el)}
-                    />
-                    <span className="shoppingCart__content-item-shipping">FREE</span>
-                    <span className="shoppingCart__content-item-subtotal">{el.quantity * el.price}</span>
-                    <button className="shoppingCart__content-item-action" onClick={() => dispatch(removeFromBasket(el))}>
-                        <img className="shoppingCart__content-item-action-img" src="img/remove_icon.png" alt="del"/>
-                    </button>
-                </div>))}
+            {basketItems.map(product => (
+                <ProductItemBascet
+                    product={product}
+                    key={product.id}
+                    id={product.id}
+                    src={product.img}
+                    alt={product.title}
+                    title={product.title}
+                    size={product.size}
+                    price={product.price}
+                    quantity={product.quantity}
+                />
+            ))}
         </div>
         <div className="shoppingCart__button container">
             <button className="shoppingCart__button-item">CLEAR SHOPPING CART</button>

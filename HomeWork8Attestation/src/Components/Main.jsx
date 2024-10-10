@@ -4,7 +4,7 @@ import Header from "./Header";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsRequest } from '../store/productsReducer';
 import { useEffect } from "react";
-import { addToBasket } from "../store/basketReducer";
+import ProductItemMain from "./ProductItemMain";
 
 function Main() {
     const { products, loading, error } = useSelector((state) => state.products);
@@ -76,24 +76,17 @@ function Main() {
         <div className="product__section-card">
             {loading && <p>Загрузка...</p>}
             {error && <p>Ошибка {error}</p>}
-            {products.slice(8).map(el => (
-                    <div className="product__card" key={el.id} >
-                        <Link to="/cart" className="product__card-link">
-                            <img src={el.img} alt={el.title} className="product__card-img"/>
-                            <div className="product__card-text">
-                                <h3 className="product__card-text-dsc">{el.title}</h3>
-                                <p className="product__card-text-price">$ {el.price}</p>
-                            </div>
-                        </Link>
-                        <div className="product__card-add-box">
-                            <button className="product__card-link-add" onClick={() => dispatch(addToBasket(el))}>
-                                <img className="product__card-link-add-pic" src="img/bascet.svg" alt="добавить"/>
-                                <p className="product__card-link-add-title">Add to Cart</p>
-                            </button>
-                        </div>
-                    </div>
-                ))
-            }
+            {products.slice(8).map(product => (
+                <ProductItemMain
+                product={product}
+                key={product.id}
+                id={product.id}
+                src={product.img}
+                alt={product.title}
+                title={product.title}
+                price={product.price}
+                />
+            ))}
         </div>
 
         <Link to='/product' className="product__link">
