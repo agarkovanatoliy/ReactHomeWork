@@ -310,7 +310,7 @@ function Product() {
                                     href='#/'
                                     key={index}
                                     onClick={() => handlePageChange(index + 1)}
-                                    className="catalog_nav__link"
+                                    className="contentProduct__catalog-product-page-select__link"
                                 >
                                     {index + 1}
                                 </a>
