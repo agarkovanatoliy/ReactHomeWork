@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchProductsRequest } from "../store/productsReducer";
 import ProductItemMain from "./ProductItemMain";
+import Slider from '@mui/material/Slider';
+import { Box } from "@mui/material";
+import { pink } from '@mui/material/colors';
+
+const color = pink[400];
 
 // Функция для пагинации
 function pagination(array, pageSize, pageNumber) {
@@ -16,10 +21,17 @@ function Product() {
     const dispatch = useDispatch();
     // Состояние для хранения текущей страницы
     const [currentPage, setCurrentPage] = useState(1);
-    // Состояние для реализации сортировки
+    // Состояние для реализации сортировки по розмеру
     const [selectedSizes, setSelectedSizes] = useState([]);
+    // Состояние для диапазона цен
+    const [price, setPrice] = useState([0, 100]);
     // Количество товаров на одной странице
     const pageSize = 6;
+
+    // Функция сохранения дипазона цен
+    const handleChange = (event, newValue) => {
+        setPrice(newValue);
+    };
 
     // Функция установки текущей страницы
     const handlePageChange = (pageNumber) => {
@@ -42,7 +54,7 @@ function Product() {
         products.filter(
         (product) =>
             // Фильтрация по размерам: отображаем только те товары, которые имеют хотя бы один из выбранных размеров
-            selectedSizes.length === 0 || selectedSizes.includes(product.size)
+            (selectedSizes.length === 0 || selectedSizes.includes(product.size)) && (product.price >= price[0] && product.price <= price[1])
         ),
         pageSize,
         currentPage
@@ -52,7 +64,7 @@ function Product() {
     const totalPages = Math.ceil(
         products.filter(
         (product) =>
-            selectedSizes.length === 0 || selectedSizes.includes(product.size)
+            (selectedSizes.length === 0 || selectedSizes.includes(product.size)) && (product.price >= price[0] && product.price <= price[1])
         ).length / pageSize
     );
 
@@ -225,21 +237,32 @@ function Product() {
                         </div>
                         <div className="contentProduct__catalog-product-sort-price">
                             <h2 className="contentProduct__catalog-product-sort-title">PRICE</h2>
-                            <div className="contentProduct__catalog-product-sort-slider">
-                                <div className="contentProduct__catalog-product-sort-progress"></div>
-                            </div>
-                            <div className="contentProduct__catalog-product-sort-range-input">
-                                <input type="range" className="contentProduct__catalog-product-sort-range-min" min="0" max="1000" value="52" step="1"/>
-                                <input type="range" className="contentProduct__catalog-product-sort-range-max" min="0" max="1000" value="400" step="1"/>
-                            </div>
+
+                            <Box sx={{ width: 262 }}>
+                                <Slider
+                                    sx={{ color: {color} }}
+                                    getAriaLabel={() => 'Temperature range'}
+                                    value={price}
+                                    onChange={handleChange}
+                                    valueLabelDisplay="auto"
+                                />
+                            </Box>
                             <div className="contentProduct__catalog-product-sort-price-input">
                                 <div className="contentProduct__catalog-product-sort-price-input-field">
-                                    <span>$</span>
-                                    <input type="number" className="contentProduct__catalog-product-sort-price-input-min" value="52"/>
+                                    <span>Min&nbsp;&nbsp;</span>
+                                    <input
+                                    type="number"
+                                    className="contentProduct__catalog-product-sort-price-input-min"
+                                    value={price[0]}
+                                    />
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-price-input-field">
-                                    <span>$</span>
-                                    <input type="number" className="contentProduct__catalog-product-sort-field-input-max" value="400"/>
+                                    <span>Max&nbsp;&nbsp;</span>
+                                    <input
+                                    type="number"
+                                    className="contentProduct__catalog-product-sort-field-input-max"
+                                    value={price[1]}
+                                    />
                                 </div>
                             </div>
                         </div>
