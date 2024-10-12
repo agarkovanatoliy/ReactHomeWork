@@ -2,14 +2,60 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProductsRequest } from "../store/productsReducer";
-import { addToBasket } from "../store/basketReducer";
 import ProductItemMain from "./ProductItemMain";
+
+// Функция для пагинации
+function pagination(array, pageSize, pageNumber) {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+    }
 
 function Product() {
     const { products, loading, error } = useSelector((state) => state.products);
     const dispatch = useDispatch();
+    // Состояние для хранения текущей страницы
+    const [currentPage, setCurrentPage] = useState(1);
+    // Состояние для реализации сортировки
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    // Количество товаров на одной странице
+    const pageSize = 6;
+
+    // Функция установки текущей страницы
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Функция обработки изменения выбранных размеров
+    const handleSizeChange = (size) => {
+        // Если размер выбран - удаляем его из состояния выбранных размеров
+        if (selectedSizes.includes(size)) {
+        setSelectedSizes(selectedSizes.filter((s) => s !== size));
+        } else {
+        // Если размер не был выбран - добавляем его для сортировки
+        setSelectedSizes([...selectedSizes, size]);
+        }
+    };
+
+    // Формирование набора карточек для отображения на текущей странице
+    const displayedProducts = pagination(
+        products.filter(
+        (product) =>
+            // Фильтрация по размерам: отображаем только те товары, которые имеют хотя бы один из выбранных размеров
+            selectedSizes.length === 0 || selectedSizes.includes(product.size)
+        ),
+        pageSize,
+        currentPage
+    );
+
+    // Определение количества отображаемых страниц
+    const totalPages = Math.ceil(
+        products.filter(
+        (product) =>
+            selectedSizes.length === 0 || selectedSizes.includes(product.size)
+        ).length / pageSize
+    );
+
 
     useEffect(() => { dispatch(fetchProductsRequest())
     },[dispatch]);
@@ -113,31 +159,66 @@ function Product() {
                             <h2 className="contentProduct__catalog-product-sort-title">SIZE</h2>
                             <div className="contentProduct__catalog-product-sort-size-content">
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("XXS")}
+                                        checked={selectedSizes.includes("XXS")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">XXS</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("XS")}
+                                        checked={selectedSizes.includes("XS")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">XS</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("S")}
+                                        checked={selectedSizes.includes("S")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">S</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("M")}
+                                        checked={selectedSizes.includes("M")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">M</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("L")}
+                                        checked={selectedSizes.includes("L")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">L</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("XL")}
+                                        checked={selectedSizes.includes("XL")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">XL</label>
                                 </div>
                                 <div className="contentProduct__catalog-product-sort-size-content-item">
-                                    <input name="Size" type="checkbox"/>
+                                    <input
+                                        name="Size"
+                                        type="checkbox"
+                                        onChange={() => handleSizeChange("XXL")}
+                                        checked={selectedSizes.includes("XXL")}
+                                    />
                                     <label htmlFor="Size" className="contentProduct__catalog-product-sort-size-content-checkbox">XXL</label>
                                 </div>
                             </div>
@@ -186,7 +267,7 @@ function Product() {
                     <div className="contentProduct__catalog-product-content">
                     {loading && <p>Загрузка...</p>}
                     {error && <p>Ошибка {error}</p>}
-                    {products.map(product => (
+                    {displayedProducts.map(product => (
                         <ProductItemMain
                             product={product}
                             key={product.id}
@@ -195,19 +276,22 @@ function Product() {
                             alt={product.title}
                             title={product.title}
                             price={product.price}
+                            size={product.size}
                         />
                     ))}
                     </div>
                     <div className="contentProduct__catalog-product-page">
                         <div className="contentProduct__catalog-product-page-select">
-                            <a href="#" className="contentProduct__catalog-product-page-select__link"><i className="fa fa-angle-left"></i></a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">1</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">2</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">3</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">4</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">5</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link">6.....20</a>
-                            <a href="#" className="contentProduct__catalog-product-page-select__link"><i className="fa fa-angle-right"></i></a>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <a
+                                    href='#/'
+                                    key={index}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className="catalog_nav__link"
+                                >
+                                    {index + 1}
+                                </a>
+                            ))}
                         </div>
                         <button className="contentProduct__catalog-product-page-button">View All</button>
                     </div>

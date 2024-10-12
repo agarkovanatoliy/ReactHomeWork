@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToBasket } from "../store/basketReducer";
 
-function ProductItemMain({product, key, src, alt, title, price}) {
+function ProductItemMain({product, key, src, alt, title, price, size}) {
 
   const dispatch = useDispatch();
 
@@ -16,6 +16,7 @@ function ProductItemMain({product, key, src, alt, title, price}) {
           <img src={src} alt={alt} className="product__card-img"/>
           <div className="product__card-text">
               <h3 className="product__card-text-dsc">{title}</h3>
+              <h3 className="product__card-text-dsc">{size}</h3>
               <p className="product__card-text-price">$ {price}</p>
           </div>
       </Link>
